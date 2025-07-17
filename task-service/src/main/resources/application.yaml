@@ -1,0 +1,62 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: task-service
+
+  datasource:
+    url: jdbc:${DATABASE_URL:h2:mem:task_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;}
+    username: ${DATABASE_USERNAME:sa}
+    password: ${DATABASE_PASSWORD:}
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+    defer-datasource-initialization: true
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+
+  sql:
+    init:
+      data-locations: classpath:db/data.sql
+
+  cache:
+    type: redis
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  mail:
+    username: orzbekov22@gmail.com
+    password: sjguicmvntpmldut
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smth:
+          auth: true
+        smtp:
+          starttls:
+            enable: true
+
+logging:
+  level:
+    org:
+      springframework: INFO
+      hibernate:
+        sql: DEBUG

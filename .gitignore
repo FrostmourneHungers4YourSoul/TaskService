@@ -1,0 +1,15 @@
+*.iml
+*.ipr
+*.iws
+**/target/
+.idea
+*.log
+*.gz
+*.tmp
+*-local.properties
+*-local.yml
+logs
+.env
+
+# OS
+.DS_Store
