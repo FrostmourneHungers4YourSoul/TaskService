@@ -26,7 +26,7 @@
 ### Функциональность
 #### Задачи
     Basic Auth: 
-                username: user, 
+                username: user 
                 password: password
 
 - `POST   /tasks          — создание задачи`
@@ -40,7 +40,7 @@
 
 ### Дополнительные выполненные задания
 1) http запрос (GET) на адрес: https://api.restful-api.dev/objects
-2) ~~unit test~~
+2) unit test
 3) отправка созданной задачи на email
 4) Basic Authentication
 5) кэширование "Получение списка задач" в Redis
