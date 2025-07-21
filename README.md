@@ -26,7 +26,7 @@
 ### Функциональность
 #### Задачи
     Basic Auth: 
-                username: user, 
+                username: user
                 password: password
 
 - `POST   /tasks          — создание задачи`

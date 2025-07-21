@@ -15,5 +15,5 @@ public interface TaskService {
 
     MessageResponse deleteTask(Long taskId);
 
-    Void getRequest();
+    void getRequest();
 }

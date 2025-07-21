@@ -76,7 +76,7 @@ public class TaskController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<Void> getObjects() {
-        return ResponseEntity.ok(taskService.getRequest());
+    public void getObjects() {
+        taskService.getRequest();
     }
 }

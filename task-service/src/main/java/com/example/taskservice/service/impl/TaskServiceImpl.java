@@ -10,13 +10,14 @@ import com.example.taskservice.model.Task;
 import com.example.taskservice.repository.TaskRepository;
 import com.example.taskservice.service.TaskService;
 import com.example.taskservice.service.mail.EmailService;
+import com.fasterxml.jackson.databind.JsonNode;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Slf4j
 @Service
@@ -25,7 +26,7 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository repository;
     private final TaskMapper mapper;
-    private final RestTemplate restTemplate;
+    private final WebClient webClient;
     private final EmailService emailService;
 
     @Override
@@ -85,11 +86,17 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Void getRequest() {
+    public void getRequest() {
         log.info("Response: GET https://api.restful-api.dev/objects");
-        Object objects = restTemplate.getForObject("https://api.restful-api.dev/objects", Object.class);
-        log.info("Result: {}", objects);
-        return null;
+
+        webClient.get()
+            .uri("https://api.restful-api.dev/objects")
+            .retrieve()
+            .bodyToMono(JsonNode.class)
+            .subscribe(
+                json -> log.info("Result: {}", json.toPrettyString()),
+                error -> log.error("Error: {}", error.getMessage())
+            );
     }
 
     private Task getTaskById(Long taskId) {
